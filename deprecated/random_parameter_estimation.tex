@@ -1,0 +1,90 @@
+\MySubSec{example.} The problem that we saw before, \EqGo{
+  \begin{cases}
+    H_0:\Q \V{R}[\VpG_t] =\V{N}[\VpG_t], \\
+    H_0:\Q \V{R}[\VpG_t] =\Ab{1,\dotsc,1} +\V{N}[\VpG_t],
+  \end{cases}
+} if we write \(\V{R}\) as \EqGo{
+    \V{R}[\VpG_t] =\tG \Ab{1,\dotsc,1} +\V{N}[\VpG_t],
+} may be alternatively seen as an attempt to determine the r.v.\ \(\tG\) that takes value 0 or 1, upon receiving \(\V{r}\). 
+
+\MySubSec{terminology.} Such situation is commonly known as \Emph{random parameter estimation}, or \Emph{Bayes estimation}.
+The parameter \(\tG\) being estimated may either be random or fixed (not random).
+
+\MySubSec{cost function.} Denote the estimation \Emph{error} to be \EqGo{
+  \DG_\tG \Df \hat{\tG}(r) -\tG
+} And let a \Emph{cost function} be given, which satisfies \EqGo{
+  C(\DG_\tG) =C(-\DG_\tG). \\
+  0 =C(0) \leq C(\DG_\tG).
+} This corresponds to the usual concept of cost, that it is symmetric, and that \(\hat{\tG} =\tG\) does not incur cost. \par
+For present purpose we assume \(f_\TG(\tG)\) is known. Then, we aim to minimize \EqGo{
+  \E{C[\DG_\TG]}
+  =\E{C[\hat{\tG} -\TG]}
+  =\E{\E{C[\hat{\tG} -\TG] \big| R}}.
+} Since the integrand is nonnegative, we just find the root of \EqGo{
+  \F{\Pt}{\Pt \hat{\tG}} \E{C[\DG_\TG]} =0.
+}
+
+\MySubSec{mean-square error.} Consider the \Emph{mean-square} (MS) error function \EqGo{
+  C[\DG_\tG]
+  =\DG_\tG^2.
+} Then we shall see \(\hat{\tG}\) is the mean of \(f[\tG \big| r]\). \par
+To show this, proceed with aforementioned assumption that derivative of cost w.r.t\ \(\hat{\tG}\) vanishes, and by carrying out derivative, by arranging and noticing sum of a conditional pdf is unity, \EqAo{
+  0
+  =&\F{\Pt}{\Pt \hat{\tG}} \int_{-\oo}^\oo (\hat{\tG}[r] -\tG)^2 f[\tG \big| r] \dd \tG \\
+  =&-2 \int_{-\oo}^\oo \tG f[\tG \big| r] \dd \tG +2 \hat{\tG} \int_{-\oo}^\oo f[\tG \big| r] \dd \tG \\
+  \Ip \hat{\tG}
+  =&\int_{-\oo}^\oo \tG f[\tG \big| r] \dd\tG 
+  =\E{\TG \big| r}.
+}
+
+\MySubSec{absolute error.} Consider the \Emph{absolute} (ABS) error function \EqGo{
+  C[\DG_\tG] =|\DG_\tG|.
+} Then we shall see \(\hat{\tG}\) is the median of \(f[\tG \big| r]\). \EqAo{
+  0
+  =&\F{\Pt}{\Pt \hat{\tG}} \int_{-\oo}^\oo \Nm{\hat{\tG}[r]-\tG} f[\tG \big| r] \dd \tG \\
+  =&\F{\Pt}{\Pt \hat{\tG}} \int_{-\oo}^{\hat{\tG}} \Rb{\hat{\tG}[r] -\tG} f[\tG \big| r] \dd \tG -
+      \F{\Pt}{\Pt \hat{\tG}} \int_{\hat{\tG}}^\oo \Rb{\hat{\tG}[r] -\tG} f[\tG \big| r] \dd\tG 
+} What is left, \EqGo{
+  \int_{-\oo}^{\hat{\tG}} f[\tG \big| r] \dd\tG 
+  =\int_{\hat{\tG}}^\oo f[\tG \big| r] \dd\tG 
+} as desired.
+
+\MySubSec{uniform error.} Consider the \Emph{uniform} (UNF) error function \EqGo{
+  C[\DG_\tG]=
+  \begin{cases}
+    0,\Q |\DG_\tG| <\eG, \\
+    1,\Q \Rm{otherwise}.
+  \end{cases}
+} with \(\eG\) to be very small for present purpose.
+Then we argue that \(\hat{\tG}\) is the maximum of \(f[\tG \big| r]\).
+In the following, subscript UNF will be added. \par
+Indeed, such cost function is a ``notch'', which filters out probability mass around the desired \(\tG\).
+To minimized this integral, just align the notch with the maximum value of \(f[\tG \big| r]\).
+As a result, such r\'egime will also be called \Emph{maximum a posteriori} (MAP) estimation.
+
+\MySubSec{MAP equation.} Derivation of MAP estimation may alternatively started with \EqGo{
+  \F{\Pt}{\Pt \tG} \log f[\tG \big| r] =0.
+} Or, by the fact that \(f[\tG \big| r] f[r] =f[r \big| \tG] f[\tG]\) and that \(f[r]\) is fixed for present purpose, \EqGo{
+  \F{\Pt}{\Pt \tG} \log f[r \big| \tG] +\F{\dd}{\dd \tG} \log f[\tG]
+  =0.
+}
+
+\MySubSec{example.} Consider \(L\)-dimensional vectors \EqGo{
+  \V{R}[\VpG_d] =\tG[\VpG_s] \Ab{1,\dotsc,1} +\V{N}[\VpG_t],
+} where \(\TG_i[\VpG_s] \sim G[0,\sG_\TG^2]\) and \(N_i[\VpG_s] \sim G[0,\sG_N^2]\), all of them i.i.d. Then, \EqAo{
+  f[\tG \big| r] \M f[r]
+  =&f[r \big| \tG] \M f[\tG] \\
+  =&\prod_{i=1}^N \F{1}{\R{2\pi} \sG_N} \exp\Rb{ -\F{(r_i -\tG)^2}{2 \sG_N^2} } \M
+      \F{1}{\R{2\pi} \sG_N} \exp\Rb{ -\F{\tG^2}{2 \sG_\TG^2} } \\
+  =&\F{1}{2\pi \sG_N} \exp\Rb{ \F{-1}{2} \Cb{
+        \F{1}{\sG_N^2} \sum_{i=1}^L r_i^2 -\F{2\tG}{\sG_N^2} \sum_{i=1}^L r_i +\Rb{ \F{N}{\sG_N^2} +\F{1}{\sG_\TG^2} } \tG^2
+    } }
+} In the expression of \(f[\tG \big| r]\), if we pull out expression containing \(r_i\), it is not difficult to see that \(\sum_{i=1}^L R_i[\VpG_d]^2\) is a sufficient statistics of \(\TG[\VpG_s]\).
+And by some arrangement, we see that, \EqGo{
+  \E{\TG \big| r}
+  =\F{2 \sG_\TG \Rb{\sum_{i=1}^L r_i^2}}{N \sG_\TG^2 +\sG_N^2}
+  =\hat{\tG}_{\Rm{MS}}
+  =\hat{\tG}_{\Rm{ABS}}
+  =\hat{\tG}_{\Rm{MAP}}
+} since \(\TG \big| r\) is Gaussian, and the mean, median, and peak of a Gaussian r.v.\ are all the same.
+

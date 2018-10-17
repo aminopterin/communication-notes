@@ -1,0 +1,43 @@
+\input{/Users/amino/templates_configs_scripts/tex_templates/template_pdflatex.tex}
+
+\begin{document}
+\title{\textit{\textbf{\Huge Digital Communication I}}: \\ Essential Concepts}
+\date{}
+\author{}
+\maketitle
+\allowdisplaybreaks[4]% allows page breaks amid eqn. arrays.
+
+\vspace{-3.7cm}% removes vertical spacing 
+\hfill{\It{ lectured by Prof.\ Char-Dir } \textsc{Chung}. } \par \vspace{-0.8mm}
+\hfill{\It{ paraphrased by Tzu-Yu } \textsc{Jeng}. } \par \vspace{-0.8mm}
+\hfill{\textsc{ \small Document compiled on: \today. }} \par \vspace{-1.8mm}
+\hfill{\textsc{ \small Non-profit use with attribution welcomed. }}
+\vspace{-0.7cm} 
+
+% Probability-related macros.
+\newcommand*{\VpG}{\varpi}
+\renewcommand*{\P}[1]{ \CF{P} \Sb{#1} }% probability
+\newcommand*{\E}[1]{ \Tw{E} \Sb{#1} }% expectation value
+\newcommand*{\Var}[1]{ \Tw{Var} \Sb{#1} }% variance
+
+% Set subsection counter.
+\newcounter{CntSubSec}% counter used in subsections
+\setcounter{CntSubSec}{0}% set counter to zero
+
+\section{Binary Decision}
+
+\input{binary_decision.tex}
+
+\section{\(M\)-ary Decision}
+
+\input{M-ary_decision.tex}
+
+\section{Random Parameter Estimation}
+
+\input{random_parameter_estimation.tex}
+
+\section{Deteministic Parameter Estimation}
+
+\input{deteministic_parameter_estimation.tex}
+
+\end{document}
